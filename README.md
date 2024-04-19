@@ -12,6 +12,9 @@ This project is a Java application for a restaurant touchscreen ordering system.
 - [ ] And more...
 
 ## User Interface
-- Current customer info page:
+- Current customer info page:  
 ![image](https://github.com/wenxie65/RestaurantTouchscreenOrderingSystem/assets/50670034/a319e0b6-4ecc-4fc0-9335-a568568f06b3)
 
+## Diagrams
+- Customer Entity Relationship Diagrams:  
+![image](https://github.com/wenxie65/RestaurantTouchscreenOrderingSystem/blob/fba2a6a476bbff7ad2495c17d93bf2c36785f593/diagrams/CustomerERD.png)
