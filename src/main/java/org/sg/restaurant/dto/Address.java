@@ -83,4 +83,21 @@ public class Address {
                 this.zipcode.equals(address.zipcode) &&
                 this.stateAbbrev.equals(address.stateAbbrev));
     }
+
+    @Override
+    public String toString() {
+        if (aptNumber == null) {
+            return String.format("%s %s \n" +
+                                    "%s, %s %s",
+                                    houseNumber, streetName,
+                                    townName, stateAbbrev, zipcode);
+        } else {
+            return String.format("%s %s \n" +
+                                    "%s \n" +
+                                    "%s, %s %s",
+                                    houseNumber, streetName,
+                                    aptNumber,
+                                    townName, stateAbbrev, zipcode);
+        }
+    }
 }
