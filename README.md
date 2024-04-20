@@ -17,4 +17,4 @@ This project is a Java application for a restaurant touchscreen ordering system.
 
 ## Diagrams
 - Customer Entity Relationship Diagrams:  
-![image](https://github.com/wenxie65/RestaurantTouchscreenOrderingSystem/blob/fba2a6a476bbff7ad2495c17d93bf2c36785f593/diagrams/CustomerERD.png)
+![image](https://github.com/wenxie65/RestaurantTouchscreenOrderingSystem/blob/6c12003910031be55b06318b7cb9799f9f862672/diagrams/CustomerERD.png)
