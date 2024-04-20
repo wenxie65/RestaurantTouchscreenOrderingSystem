@@ -8,6 +8,8 @@ public interface AddressDao {
 
     List<Address> getAllAddress();
 
+    Address getAddressById(int addressId);
+
     List<Address> getAddressByPhone(String phoneNumber);
 
     Address createAddress(Address address);
@@ -15,8 +17,6 @@ public interface AddressDao {
     void addAddressToCustomer(String phoneNumber, int addressId);
 
     void updateAddress(Address address);
-
-    void deleteAddress(Address address);
 
     void deleteAddress(int addressId);
 }
