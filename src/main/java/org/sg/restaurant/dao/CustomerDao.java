@@ -10,7 +10,7 @@ public interface CustomerDao {
 
     Customer getCustomerByPhone(String phoneNumber);
 
-    void addCustomer(Customer customer);
+    Customer createCustomer(Customer customer);
 
     void updateCustomer(Customer customer);
 

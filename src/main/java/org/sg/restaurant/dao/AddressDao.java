@@ -10,7 +10,9 @@ public interface AddressDao {
 
     List<Address> getAddressByPhone(String phoneNumber);
 
-    void addAddress(String phoneNumber, Address address);
+    Address createAddress(Address address);
+
+    void addAddressToCustomer(String phoneNumber, int addressId);
 
     void updateAddress(Address address);
 
