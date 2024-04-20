@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS customerInfoDB;
+-- DROP DATABASE IF EXISTS customerInfoDB;
 
-CREATE DATABASE customerInfoDB;
-USE customerInfoDB;
+-- CREATE DATABASE customerInfoDB;
+-- USE customerInfoDB;
 
 -- Table structure for state
 DROP TABLE IF EXISTS state;
@@ -75,24 +75,23 @@ CREATE TABLE address (
 -- Table structure for customer
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer (
-	customerId INT AUTO_INCREMENT,
     phoneNumber VARCHAR(15) NOT NULL,
     name VARCHAR(20),
     notes TEXT,
     CONSTRAINT pk_customer 
-		PRIMARY KEY (customerId)
+		PRIMARY KEY (phoneNumber)
 );
 
 -- Table structure for customer_address bridge table
 DROP TABLE IF EXISTS customer_address;
 CREATE TABLE customer_address (
-	customerId INT NOT NULL,
+	phoneNumber VARCHAR(15) NOT NULL,
     addressId INT NOT NULL,
     CONSTRAINT pk_customer_address
-		PRIMARY KEY (customerId, addressId),
+		PRIMARY KEY (phoneNumber, addressId),
 	CONSTRAINT fk_customer_address_customer
-		FOREIGN KEY (customerId)
-			REFERENCES customer(customerId)
+		FOREIGN KEY (phoneNumber)
+			REFERENCES customer(phoneNumber)
             ON UPDATE CASCADE
 			ON DELETE CASCADE,
 	CONSTRAINT fk_customer_address_address
