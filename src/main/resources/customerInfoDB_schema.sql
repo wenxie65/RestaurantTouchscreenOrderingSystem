@@ -33,23 +33,10 @@ DROP TABLE IF EXISTS street;
 CREATE TABLE street (
 	streetId INT AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
-    CONSTRAINT pk_street
-		PRIMARY KEY (streetId)
-);
-
--- Table structure for street_town bridge table
-DROP TABLE IF EXISTS street_town;
-CREATE TABLE street_town (
-	streetId INT NOT NULL,
     townId INT NOT NULL,
-    CONSTRAINT pk_street_town
-		PRIMARY KEY (streetId, townId),
-	CONSTRAINT fk_street_town_street
-		FOREIGN KEY (streetId)
-			REFERENCES street(streetId)
-			ON UPDATE CASCADE
-			ON DELETE CASCADE,
-	CONSTRAINT fk_street_town_town
+    CONSTRAINT pk_street
+		PRIMARY KEY (streetId),
+	CONSTRAINT fk_street_town
 		FOREIGN KEY (townId)
 			REFERENCES town(townId)
             ON UPDATE CASCADE
