@@ -2,22 +2,38 @@ package org.sg.restaurant.dto;
 
 public class State {
 
-    private String abbrev;
-    private String name;
+    private String stateAbbrev;
+    private String stateName;
 
-    public String getAbbrev() {
-        return abbrev;
+    public String getStateAbbrev() {
+        return stateAbbrev;
     }
 
-    public void setAbbrev(String abbrev) {
-        this.abbrev = abbrev;
+    public void setStateAbbrev(String stateAbbrev) {
+        this.stateAbbrev = stateAbbrev;
     }
 
-    public String getName() {
-        return name;
+    public String getStateName() {
+        return stateName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null ||
+            this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        State state = (State) obj;
+
+        return (this.stateAbbrev.equals(state.stateAbbrev) &&
+                this.stateName.equals(state.stateName));
     }
 }

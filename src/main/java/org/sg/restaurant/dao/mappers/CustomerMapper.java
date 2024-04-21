@@ -13,8 +13,8 @@ public class CustomerMapper implements RowMapper<Customer> {
         Customer customer = new Customer();
 
         customer.setPhoneNumber(resultSet.getString("phoneNumber"));
-        customer.setName(resultSet.getString("customerName"));
-        customer.setNotes(resultSet.getString("customerNotes"));
+        customer.setCustomerName(resultSet.getString("customerName"));
+        customer.setCustomerNotes(resultSet.getString("customerNotes"));
 
         return customer;
     }

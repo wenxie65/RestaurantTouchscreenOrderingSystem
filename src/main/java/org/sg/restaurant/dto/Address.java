@@ -1,20 +1,26 @@
 package org.sg.restaurant.dto;
 
 public class Address {
-    private int addressId;
+
+    private int houseId;
     private String houseNumber;
     private String aptNumber;
     private String streetName;
     private String townName;
-    private String zipcode;
     private String stateAbbrev;
+    private String zipcode;
 
-    public int getAddressId() {
-        return addressId;
+    // Initial optional variables
+    public Address() {
+        aptNumber = "";
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public int getHouseId() {
+        return houseId;
+    }
+
+    public void setHouseId(int houseId) {
+        this.houseId = houseId;
     }
 
     public String getHouseNumber() {
@@ -49,14 +55,6 @@ public class Address {
         this.townName = townName;
     }
 
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
     public String getStateAbbrev() {
         return stateAbbrev;
     }
@@ -65,39 +63,28 @@ public class Address {
         this.stateAbbrev = stateAbbrev;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null ||
-            this.getClass() != obj.getClass()) {
-            return false;
-        }
+    public String getZipcode() {
+        return zipcode;
+    }
 
-        Address address = (Address) obj;
-        return (this.houseNumber.equals(address.houseNumber) &&
-                this.aptNumber.equals(address.aptNumber) &&
-                this.streetName.equals(address.streetName) &&
-                this.townName.equals(address.townName) &&
-                this.zipcode.equals(address.zipcode) &&
-                this.stateAbbrev.equals(address.stateAbbrev));
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     @Override
     public String toString() {
         if (aptNumber == null) {
             return String.format("%s %s \n" +
-                                    "%s, %s %s",
-                                    houseNumber, streetName,
-                                    townName, stateAbbrev, zipcode);
+                            "%s, %s %s",
+                    houseNumber, streetName,
+                    townName, stateAbbrev, zipcode);
         } else {
             return String.format("%s %s \n" +
-                                    "%s \n" +
-                                    "%s, %s %s",
-                                    houseNumber, streetName,
-                                    aptNumber,
-                                    townName, stateAbbrev, zipcode);
+                            "%s \n" +
+                            "%s, %s %s",
+                    houseNumber, streetName,
+                    aptNumber,
+                    townName, stateAbbrev, zipcode);
         }
     }
 }

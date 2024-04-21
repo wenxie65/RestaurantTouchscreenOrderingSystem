@@ -2,8 +2,14 @@ package org.sg.restaurant.dto;
 
 public class Customer {
     private String phoneNumber;
-    private String name;
-    private String notes;
+    private String customerName;
+    private String customerNotes;
+
+    // Initial optional variables
+    public Customer() {
+        customerName = "";
+        customerNotes = "";
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -13,20 +19,20 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getCustomerNotes() {
+        return customerNotes;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setCustomerNotes(String customerNotes) {
+        this.customerNotes = customerNotes;
     }
 
     @Override
@@ -41,7 +47,9 @@ public class Customer {
 
         Customer customer = (Customer) obj;
 
-        return (this.phoneNumber.equals(customer.phoneNumber));
+        return (this.phoneNumber.equals(customer.phoneNumber) &&
+                this.customerName.equals(customer.customerName) &&
+                this.customerNotes.equals(customer.customerNotes));
 
     }
 }

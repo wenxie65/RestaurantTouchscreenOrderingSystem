@@ -4,7 +4,7 @@ public class Street {
 
     private int streetId;
     private String streetName;
-    private int townId;
+    private String zipcode;
 
     public int getStreetId() {
         return streetId;
@@ -22,11 +22,28 @@ public class Street {
         this.streetName = streetName;
     }
 
-    public int getTownId() {
-        return townId;
+    public String getZipcode() {
+        return zipcode;
     }
 
-    public void setTownId(int townId) {
-        this.townId = townId;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null ||
+            this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Street street = (Street) obj;
+
+        return (this.streetId == street.streetId &&
+                this.streetName.equals(street.streetName) &&
+                this.zipcode.equals(street.zipcode));
     }
 }

@@ -2,17 +2,16 @@ package org.sg.restaurant.dto;
 
 public class Town {
 
-    private int townId;
+    private String zipcode;
     private String townName;
     private String stateAbbrev;
-    private String zipcode;
 
-    public int getTownId() {
-        return townId;
+    public String getZipcode() {
+        return zipcode;
     }
 
-    public void setTownId(int townId) {
-        this.townId = townId;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getTownName() {
@@ -31,11 +30,20 @@ public class Town {
         this.stateAbbrev = stateAbbrev;
     }
 
-    public String getZipcode() {
-        return zipcode;
-    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return false;
+        }
+        if (obj == null ||
+            this.getClass() != obj.getClass()) {
+            return false;
+        }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+        Town town = (Town) obj;
+
+        return (this.zipcode.equals(town.zipcode) &&
+                this.townName.equals(town.townName) &&
+                this.stateAbbrev.equals(town.stateAbbrev));
     }
 }
