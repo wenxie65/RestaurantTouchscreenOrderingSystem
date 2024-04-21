@@ -1,22 +1,36 @@
 package org.sg.restaurant.dao;
 
 import org.sg.restaurant.dto.Address;
+import org.sg.restaurant.dto.House;
+import org.sg.restaurant.dto.State;
+import org.sg.restaurant.dto.Street;
+import org.sg.restaurant.dto.Town;
 
-import java.util.List;
+import java.util.Map;
 
 public interface AddressDao {
 
-    List<Address> getAllAddress();
+    Map<Integer, Address> getAllAddress() throws InvalidSqlStatementException;
 
-    Address getAddressById(int addressId);
+    Address getAddressByHouseId(int houseId) throws InvalidSqlStatementException;
 
-    List<Address> getAddressByPhone(String phoneNumber);
+    Map<Integer, Address> getAddressByPhone(String phoneNumber) throws InvalidSqlStatementException;
 
-    Address createAddress(Address address);
+    void addHouseToCustomer(String phoneNumber, int houseId) throws InvalidSqlStatementException;
 
-    void addAddressToCustomer(String phoneNumber, int addressId);
+    House createHouse(House house) throws InvalidSqlStatementException;
 
-    void updateAddress(Address address);
+    House getHouseByHouseId(int houseId) throws InvalidSqlStatementException, EntityNotFoundException;
 
-    void deleteAddress(int addressId);
+    Street createStreet(Street street) throws InvalidSqlStatementException;
+
+    Street getStreetByStreetId(int streetId) throws InvalidSqlStatementException, EntityNotFoundException;
+
+    Town createTown(Town town) throws InvalidSqlStatementException;
+
+    Town getTownByZipcode(String zipcode) throws InvalidSqlStatementException, EntityNotFoundException;
+
+    State createState(State state) throws InvalidSqlStatementException;
+
+    State getStateByAbbrev(String stateAbbrev) throws InvalidSqlStatementException, EntityNotFoundException;
 }

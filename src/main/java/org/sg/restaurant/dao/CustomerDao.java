@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface CustomerDao {
 
-    List<Customer> getAllCustomer() throws RestaurantDatabaseException;
+    List<Customer> getAllCustomer() throws InvalidSqlStatementException;
 
-    Customer getCustomerByPhone(String phoneNumber) throws RestaurantDatabaseException;
+    Customer getCustomerByPhone(String phoneNumber) throws InvalidSqlStatementException, EntityNotFoundException;
 
-    Customer createCustomer(Customer customer) throws RestaurantDatabaseException;
+    Customer createCustomer(Customer customer) throws InvalidSqlStatementException;
 
-    void updateCustomer(Customer customer) throws RestaurantDatabaseException;
+    void updateCustomer(Customer customer) throws InvalidSqlStatementException;
 
-    void deleteCustomer(String phoneNumber) throws RestaurantDatabaseException;
+    void deleteCustomer(String phoneNumber) throws InvalidSqlStatementException;
 }
