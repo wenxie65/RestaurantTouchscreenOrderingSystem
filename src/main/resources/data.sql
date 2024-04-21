@@ -1,6 +1,6 @@
 -- USE customerInfoDB;
 
-INSERT INTO state (abbrev, name) VALUES
+INSERT INTO state (stateAbbrev, stateName) VALUES
 ('AL', 'Alabama'),
 ('AK', 'Alaska'),
 ('AZ', 'Arizona'),

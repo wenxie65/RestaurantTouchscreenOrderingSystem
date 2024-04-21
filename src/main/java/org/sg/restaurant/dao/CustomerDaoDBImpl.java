@@ -22,7 +22,7 @@ public class CustomerDaoDBImpl implements CustomerDao {
     public List<Customer> getAllCustomer() throws RestaurantDatabaseException {
         try {
             final String sql =
-                    "SELECT phoneNumber, name, notes " +
+                    "SELECT phoneNumber, customerName, customerNotes " +
                             "FROM customer;";
 
             return jdbcTemplate.query(sql, new CustomerMapper());
@@ -37,7 +37,7 @@ public class CustomerDaoDBImpl implements CustomerDao {
     public Customer getCustomerByPhone(String phoneNumber) throws RestaurantDatabaseException {
         try {
             final String sql =
-                    "SELECT phoneNumber, name, notes " +
+                    "SELECT phoneNumber, customerName, customerNotes " +
                             "FROM customer " +
                             "WHERE phoneNumber = ?;";
 
@@ -55,7 +55,7 @@ public class CustomerDaoDBImpl implements CustomerDao {
     public Customer createCustomer(Customer customer) throws RestaurantDatabaseException {
         try {
             final String sql =
-                    "INSERT INTO customer(phoneNumber, name, notes) " +
+                    "INSERT INTO customer(phoneNumber, customerName, customerNotes) " +
                     "VALUES (?,?,?);";
 
             jdbcTemplate.update(
@@ -77,8 +77,8 @@ public class CustomerDaoDBImpl implements CustomerDao {
         try {
             final String sql =
                     "UPDATE customer SET " +
-                    "name = ?, " +
-                    "notes = ? " +
+                    "customerName = ?, " +
+                    "customerNotes = ? " +
                     "WHERE phoneNumber = ?;";
 
             jdbcTemplate.update(

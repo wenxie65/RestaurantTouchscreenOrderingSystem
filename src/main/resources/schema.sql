@@ -6,24 +6,24 @@
 -- Table structure for state
 DROP TABLE IF EXISTS state;
 CREATE TABLE state (
-	abbrev VARCHAR(2) NOT NULL,
-    name VARCHAR(30) NOT NULL,
+	stateAbbrev VARCHAR(2) NOT NULL,
+    stateName VARCHAR(30) NOT NULL,
     CONSTRAINT pk_state
-		PRIMARY KEY (abbrev)
+		PRIMARY KEY (stateAbbrev)
 );
 
 -- Table structure for town
 DROP TABLE IF EXISTS town;
 CREATE TABLE town (
 	townId INT AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    state VARCHAR(2)  NOT NULL,
+    townName VARCHAR(100) NOT NULL,
+    stateAbbrev VARCHAR(2)  NOT NULL,
     zipcode VARCHAR(10) NOT NULL,
     CONSTRAINT pk_town
 		PRIMARY KEY (townId),
 	CONSTRAINT fk_town_state
-		FOREIGN KEY (state)
-			REFERENCES state(abbrev)
+		FOREIGN KEY (stateAbbrev)
+			REFERENCES state(stateAbbrev)
             ON UPDATE CASCADE
 			ON DELETE CASCADE
 );
@@ -32,7 +32,7 @@ CREATE TABLE town (
 DROP TABLE IF EXISTS street;
 CREATE TABLE street (
 	streetId INT AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    streetName VARCHAR(100) NOT NULL,
     townId INT NOT NULL,
     CONSTRAINT pk_street
 		PRIMARY KEY (streetId),
@@ -63,8 +63,8 @@ CREATE TABLE address (
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer (
     phoneNumber VARCHAR(15) NOT NULL,
-    name VARCHAR(20),
-    notes TEXT,
+    customerName VARCHAR(20),
+    customerNotes TEXT,
     CONSTRAINT pk_customer 
 		PRIMARY KEY (phoneNumber)
 );
