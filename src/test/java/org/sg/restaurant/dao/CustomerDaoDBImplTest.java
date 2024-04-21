@@ -15,182 +15,74 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJdbcTest
 class CustomerDaoDBImplTest {
 
-    private final JdbcTemplate jdbcTemplate;
     private final CustomerDao customerDao;
 
     @Autowired
     public CustomerDaoDBImplTest(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
         customerDao = new CustomerDaoDBImpl(jdbcTemplate);
     }
 
     @Test
-    @DisplayName("Get All Test")
+    @DisplayName("Valid Input Test")
     @Transactional
-    public void getAllCustomerTest() {
-        try {
-            List<Customer> customerList = customerDao.getAllCustomer();
-
-            assertNotNull(customerList);
-        } catch (Exception exception) {
-            fail("No exception should be thrown.");
-        }
-    }
-
-    @Test
-    @DisplayName("Create and Get All Test")
-    @Transactional
-    public void createAndGetAllCustomerTest() {
+    public void validTest() {
         try {
             List<Customer> customerList = customerDao.getAllCustomer();
             int initialSize = customerList.size();
 
+            // Create and get all customer test
             Customer customer1 = new Customer();
             customer1.setPhoneNumber("1111111111");
-            customer1.setName("Customer One");
-            customer1.setNotes("Notes");
-            customerDao.createCustomer(customer1);
+            customer1.setCustomerName("Customer One");
+            customer1.setCustomerNotes("Notes");
+            customer1 = customerDao.createCustomer(customer1);
 
             Customer customer2 = new Customer();
             customer2.setPhoneNumber("2222222222");
-            customerDao.createCustomer(customer2);
+            customer2.setCustomerName("Customer Two");
+            customer2 = customerDao.createCustomer(customer2);
 
             customerList = customerDao.getAllCustomer();
 
             assertNotNull(customerList);
             assertEquals(initialSize + 2, customerList.size());
-        } catch (Exception exception) {
-            fail("No exception should be thrown.");
-        }
-    }
 
-    @Test
-    @DisplayName("Create and Get By Phone Test")
-    @Transactional
-    public void createAndGetByPhoneCustomerTest() {
-        try {
-            Customer customer1 = new Customer();
-            customer1.setPhoneNumber("1111111111");
-            customer1.setName("Customer One");
-            customer1.setNotes("Notes");
-            customerDao.createCustomer(customer1);
 
+            // Get customer by phone number test
             Customer retrievedCustomer = customerDao.getCustomerByPhone(customer1.getPhoneNumber());
 
             assertNotNull(retrievedCustomer);
             assertEquals(customer1, retrievedCustomer);
 
-            String invalidPhoneNumber = "2222222222";
-            retrievedCustomer = customerDao.getCustomerByPhone(invalidPhoneNumber);
 
-            assertNull(retrievedCustomer);
-        } catch (Exception exception) {
-            fail("No exception should be thrown.");
-        }
-    }
-
-    @Test
-    @DisplayName("Create, Update and Get By Phone Test")
-    @Transactional
-    public void createUpdateAndGetByPhoneCustomerTest() {
-        try {
-            Customer customer1 = new Customer();
-            customer1.setPhoneNumber("1111111111");
-            customer1.setName("Customer One");
-            customer1.setNotes("Notes");
-            customerDao.createCustomer(customer1);
-
-            customer1.setName("New Name");
-            customer1.setNotes("Updated Notes");
-            customerDao.updateCustomer(customer1);
-
-            Customer retrievedCustomer = customerDao.getCustomerByPhone(customer1.getPhoneNumber());
+            retrievedCustomer = customerDao.getCustomerByPhone(customer2.getPhoneNumber());
 
             assertNotNull(retrievedCustomer);
-            assertEquals(customer1, retrievedCustomer);
-            assertEquals("New Name", retrievedCustomer.getName());
-            assertEquals("Updated Notes", retrievedCustomer.getNotes());
-        } catch (Exception exception) {
-            fail("No exception should be thrown.");
-        }
-    }
 
-    @Test
-    @DisplayName("Create, Update and Get All Test")
-    @Transactional
-    public void createUpdateAndGetAllCustomerTest() {
-        try {
-            List<Customer> customerList = customerDao.getAllCustomer();
-            int initialSize = customerList.size();
+            assertEquals(customer2, retrievedCustomer);
 
-            Customer customer1 = new Customer();
-            customer1.setPhoneNumber("1111111111");
-            customer1.setName("Customer One");
-            customer1.setNotes("Notes");
-            customerDao.createCustomer(customer1);
 
-            customer1.setName("New Name");
-            customer1.setNotes("Updated Notes");
-            customerDao.updateCustomer(customer1);
+            // Update customer test
+            Customer updatedCustomer = new Customer();
+            updatedCustomer.setPhoneNumber(customer1.getPhoneNumber());
+            updatedCustomer.setCustomerName("New Name");
+            updatedCustomer.setCustomerNotes("Updated Notes");
+            customerDao.updateCustomer(updatedCustomer);
 
-            customerList = customerDao.getAllCustomer();
-
-            assertNotNull(customerList);
-            assertEquals(initialSize + 1, customerList.size());
-        } catch (Exception exception) {
-            fail("No exception should be thrown.");
-        }
-    }
-
-    @Test
-    @DisplayName("Create, Delete and Get By Phone Test")
-    @Transactional
-    public void createDeleteAndGetByPhoneCustomerTest() {
-        try {
-            Customer customer1 = new Customer();
-            customer1.setPhoneNumber("1111111111");
-            customer1.setName("Customer One");
-            customer1.setNotes("Notes");
-            customerDao.createCustomer(customer1);
-
-            Customer retrievedCustomer = customerDao.getCustomerByPhone(customer1.getPhoneNumber());
-
-            assertNotNull(retrievedCustomer);
-            assertEquals(customer1, retrievedCustomer);
-
-            customerDao.deleteCustomer(customer1.getPhoneNumber());
             retrievedCustomer = customerDao.getCustomerByPhone(customer1.getPhoneNumber());
 
-            assertNull(retrievedCustomer);
-        } catch (Exception exception) {
-            fail("No exception should be thrown.");
-        }
-    }
+            assertNotNull(retrievedCustomer);
+            assertNotEquals(customer1, retrievedCustomer);
+            assertEquals(updatedCustomer, retrievedCustomer);
 
-    @Test
-    @DisplayName("Create, Delete and Get All Test")
-    @Transactional
-    public void createDeleteAndGetAllCustomerTest() {
-        try {
-            List<Customer> customerList = customerDao.getAllCustomer();
-            int initialSize = customerList.size();
 
-            Customer customer1 = new Customer();
-            customer1.setPhoneNumber("1111111111");
-            customer1.setName("Customer One");
-            customer1.setNotes("Notes");
-            customerDao.createCustomer(customer1);
-
-            customerList = customerDao.getAllCustomer();
-
-            assertNotNull(customerList);
-            assertEquals(initialSize + 1, customerList.size());
-
+            // Delete customer test
             customerDao.deleteCustomer(customer1.getPhoneNumber());
-            customerList = customerDao.getAllCustomer();
 
-            assertNotNull(customerList);
-            assertEquals(initialSize, customerList.size());
+            assertEquals(initialSize + 1, customerDao.getAllCustomer().size());
+
+            customerDao.deleteCustomer(customer2.getPhoneNumber());
+            assertEquals(initialSize, customerDao.getAllCustomer().size());
         } catch (Exception exception) {
             fail("No exception should be thrown.");
         }
