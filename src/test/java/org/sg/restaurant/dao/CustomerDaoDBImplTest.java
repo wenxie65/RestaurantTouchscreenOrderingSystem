@@ -33,7 +33,7 @@ class CustomerDaoDBImplTest {
 
             assertNotNull(customerList);
         } catch (Exception exception) {
-            fail();
+            fail("No exception should be thrown.");
         }
     }
 
@@ -60,7 +60,7 @@ class CustomerDaoDBImplTest {
             assertNotNull(customerList);
             assertEquals(initialSize + 2, customerList.size());
         } catch (Exception exception) {
-            fail();
+            fail("No exception should be thrown.");
         }
     }
 
@@ -85,7 +85,7 @@ class CustomerDaoDBImplTest {
 
             assertNull(retrievedCustomer);
         } catch (Exception exception) {
-            fail();
+            fail("No exception should be thrown.");
         }
     }
 
@@ -111,7 +111,7 @@ class CustomerDaoDBImplTest {
             assertEquals("New Name", retrievedCustomer.getName());
             assertEquals("Updated Notes", retrievedCustomer.getNotes());
         } catch (Exception exception) {
-            fail();
+            fail("No exception should be thrown.");
         }
     }
 
@@ -138,7 +138,7 @@ class CustomerDaoDBImplTest {
             assertNotNull(customerList);
             assertEquals(initialSize + 1, customerList.size());
         } catch (Exception exception) {
-            fail();
+            fail("No exception should be thrown.");
         }
     }
 
@@ -163,7 +163,7 @@ class CustomerDaoDBImplTest {
 
             assertNull(retrievedCustomer);
         } catch (Exception exception) {
-            fail();
+            fail("No exception should be thrown.");
         }
     }
 
@@ -192,7 +192,7 @@ class CustomerDaoDBImplTest {
             assertNotNull(customerList);
             assertEquals(initialSize, customerList.size());
         } catch (Exception exception) {
-            fail();
+            fail("No exception should be thrown.");
         }
     }
 
