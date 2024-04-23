@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJdbcTest
@@ -24,6 +26,18 @@ class AddressDaoDBImplTest {
     @DisplayName("Valid Input Test")
     @Transactional
     public void validTest() {
+        Map<Integer, Address> addressMap;
+        int initialSize = 0;
+        try {
+            addressMap = addressDao.getAllAddress();
+            initialSize = addressMap.size();
+        } catch (EntityNotFoundException ignored) {
+
+        } catch (Exception exception) {
+            fail("No other exception should be thrown.");
+        }
+
+
         try {
             // Create and get state by abbreviation test
             State testState = new State();
@@ -84,6 +98,12 @@ class AddressDaoDBImplTest {
             assertEquals(testTown.getZipcode(), testAddress.getZipcode());
             assertEquals(testState.getStateAbbrev(), testAddress.getStateAbbrev());
 
+
+            // Get all address test
+            addressMap = addressDao.getAllAddress();
+
+            assertNotNull(addressMap);
+            assertEquals(initialSize + 1, addressMap.size());
         } catch (Exception exception) {
             fail("No exception should be thrown.");
         }

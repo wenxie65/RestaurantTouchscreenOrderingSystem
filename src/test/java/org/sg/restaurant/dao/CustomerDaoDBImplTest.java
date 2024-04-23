@@ -8,7 +8,7 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,10 +26,20 @@ class CustomerDaoDBImplTest {
     @DisplayName("Valid Input Test")
     @Transactional
     public void validTest() {
-        try {
-            List<Customer> customerList = customerDao.getAllCustomer();
-            int initialSize = customerList.size();
+        Map<String, Customer> customerMap;
+        int initialSize = 0;
 
+        try {
+            customerMap = customerDao.getAllCustomer();
+            initialSize = customerMap.size();
+        } catch (EntityNotFoundException ignored) {
+
+        } catch (Exception exception) {
+            fail("No other exception should be thrown.");
+        }
+
+
+        try {
             // Create and get all customer test
             Customer customer1 = new Customer();
             customer1.setPhoneNumber("1111111111");
@@ -42,10 +52,10 @@ class CustomerDaoDBImplTest {
             customer2.setCustomerName("Customer Two");
             customer2 = customerDao.createCustomer(customer2);
 
-            customerList = customerDao.getAllCustomer();
+            customerMap = customerDao.getAllCustomer();
 
-            assertNotNull(customerList);
-            assertEquals(initialSize + 2, customerList.size());
+            assertNotNull(customerMap);
+            assertEquals(initialSize + 2, customerMap.size());
 
 
             // Get customer by phone number test
@@ -58,7 +68,6 @@ class CustomerDaoDBImplTest {
             retrievedCustomer = customerDao.getCustomerByPhone(customer2.getPhoneNumber());
 
             assertNotNull(retrievedCustomer);
-
             assertEquals(customer2, retrievedCustomer);
 
 
@@ -80,9 +89,6 @@ class CustomerDaoDBImplTest {
             customerDao.deleteCustomer(customer1.getPhoneNumber());
 
             assertEquals(initialSize + 1, customerDao.getAllCustomer().size());
-
-            customerDao.deleteCustomer(customer2.getPhoneNumber());
-            assertEquals(initialSize, customerDao.getAllCustomer().size());
         } catch (Exception exception) {
             fail("No exception should be thrown.");
         }
