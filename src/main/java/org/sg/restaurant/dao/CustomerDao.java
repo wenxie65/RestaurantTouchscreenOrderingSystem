@@ -2,11 +2,11 @@ package org.sg.restaurant.dao;
 
 import org.sg.restaurant.dto.Customer;
 
-import java.util.List;
+import java.util.Map;
 
 public interface CustomerDao {
 
-    List<Customer> getAllCustomer() throws InvalidSqlStatementException;
+    Map<String, Customer> getAllCustomer() throws InvalidSqlStatementException, EntityNotFoundException;
 
     Customer getCustomerByPhone(String phoneNumber) throws InvalidSqlStatementException, EntityNotFoundException;
 
@@ -15,4 +15,6 @@ public interface CustomerDao {
     void updateCustomer(Customer customer) throws InvalidSqlStatementException;
 
     void deleteCustomer(String phoneNumber) throws InvalidSqlStatementException;
+
+    Map<String, Customer> getCustomerByHouseId(int houseId) throws InvalidSqlStatementException, EntityNotFoundException;
 }

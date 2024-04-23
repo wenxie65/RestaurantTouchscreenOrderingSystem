@@ -10,11 +10,11 @@ import java.util.Map;
 
 public interface AddressDao {
 
-    Map<Integer, Address> getAllAddress() throws InvalidSqlStatementException;
+    Map<Integer, Address> getAllAddress() throws InvalidSqlStatementException, EntityNotFoundException;
 
-    Address getAddressByHouseId(int houseId) throws InvalidSqlStatementException;
+    Address getAddressByHouseId(int houseId) throws InvalidSqlStatementException, EntityNotFoundException;
 
-    Map<Integer, Address> getAddressByPhone(String phoneNumber) throws InvalidSqlStatementException;
+    Map<Integer, Address> getAddressByPhone(String phoneNumber) throws InvalidSqlStatementException, EntityNotFoundException;
 
     void addHouseToCustomer(String phoneNumber, int houseId) throws InvalidSqlStatementException;
 
