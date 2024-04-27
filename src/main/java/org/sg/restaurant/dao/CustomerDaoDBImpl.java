@@ -15,9 +15,9 @@ import java.util.Map;
 @Repository
 public class CustomerDaoDBImpl implements CustomerDao {
 
+    @Autowired
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public CustomerDaoDBImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

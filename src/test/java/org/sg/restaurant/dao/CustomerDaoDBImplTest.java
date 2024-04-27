@@ -23,7 +23,7 @@ class CustomerDaoDBImplTest {
     }
 
     @Test
-    @DisplayName("Valid Input Test")
+    @DisplayName("Valid Input DAO Test")
     @Transactional
     public void validTest() {
         Map<String, Customer> customerMap;

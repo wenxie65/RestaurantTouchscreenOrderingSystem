@@ -23,7 +23,7 @@ class AddressDaoDBImplTest {
     }
 
     @Test
-    @DisplayName("Valid Input Test")
+    @DisplayName("Valid Input DAO Test")
     @Transactional
     public void validTest() {
         Map<Integer, Address> addressMap;

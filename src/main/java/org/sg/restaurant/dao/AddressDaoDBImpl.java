@@ -20,9 +20,9 @@ import java.util.Objects;
 @Repository
 public class AddressDaoDBImpl implements AddressDao {
 
+    @Autowired
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public AddressDaoDBImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
