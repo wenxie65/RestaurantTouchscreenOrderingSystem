@@ -5,6 +5,11 @@ public class State {
     private String stateAbbrev;
     private String stateName;
 
+    public State() {
+        stateAbbrev = "";
+        stateName = "";
+    }
+
     public String getStateAbbrev() {
         return stateAbbrev;
     }

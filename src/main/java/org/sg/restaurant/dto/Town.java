@@ -6,6 +6,12 @@ public class Town {
     private String townName;
     private String stateAbbrev;
 
+    public Town() {
+        zipcode = "00000";
+        townName = "";
+        stateAbbrev = "";
+    }
+
     public String getZipcode() {
         return zipcode;
     }

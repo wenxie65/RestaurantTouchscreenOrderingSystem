@@ -6,6 +6,12 @@ public class Street {
     private String streetName;
     private String zipcode;
 
+    public Street() {
+        streetId = -1;
+        streetName = "";
+        zipcode = "";
+    }
+
     public int getStreetId() {
         return streetId;
     }

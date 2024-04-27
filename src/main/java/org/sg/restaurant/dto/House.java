@@ -6,9 +6,11 @@ public class House {
     private String aptNumber;
     private int streetId;
 
-    // Initial optional variables
     public House() {
+        houseId = -1;
+        houseNumber = "";
         aptNumber = "";
+        streetId = -1;
     }
 
     public int getHouseId() {

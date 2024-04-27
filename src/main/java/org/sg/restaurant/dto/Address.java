@@ -10,9 +10,14 @@ public class Address {
     private String stateAbbrev;
     private String zipcode;
 
-    // Initial optional variables
     public Address() {
+        houseId = -1;
+        houseNumber = "";
         aptNumber = "";
+        streetName = "";
+        townName = "";
+        stateAbbrev = "";
+        zipcode = "";
     }
 
     public int getHouseId() {

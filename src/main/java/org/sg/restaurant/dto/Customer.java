@@ -5,8 +5,8 @@ public class Customer {
     private String customerName;
     private String customerNotes;
 
-    // Initial optional variables
     public Customer() {
+        phoneNumber = "";
         customerName = "";
         customerNotes = "";
     }
