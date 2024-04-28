@@ -12,9 +12,9 @@ public interface CustomerDao {
 
     Customer createCustomer(Customer customer) throws InvalidSqlStatementException;
 
-    void updateCustomer(Customer customer) throws InvalidSqlStatementException;
+    void updateCustomer(Customer customer) throws InvalidSqlStatementException, EntityNotFoundException;
 
-    void deleteCustomer(String phoneNumber) throws InvalidSqlStatementException;
+    void deleteCustomer(String phoneNumber) throws InvalidSqlStatementException, EntityNotFoundException;
 
     Map<String, Customer> getCustomerByHouseId(int houseId) throws InvalidSqlStatementException, EntityNotFoundException;
 }

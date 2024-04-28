@@ -100,8 +100,11 @@ public class CustomerDaoDBImpl implements CustomerDao {
     }
 
     @Override
-    public void updateCustomer(Customer customer) throws InvalidSqlStatementException {
+    public void updateCustomer(Customer customer) throws InvalidSqlStatementException, EntityNotFoundException {
         try {
+
+            getCustomerByPhone(customer.getPhoneNumber()); // check if customer exists
+
             final String sql =
                     "UPDATE customer SET " +
                     "customerName = ?, " +
@@ -123,8 +126,11 @@ public class CustomerDaoDBImpl implements CustomerDao {
     }
 
     @Override
-    public void deleteCustomer(String phoneNumber) throws InvalidSqlStatementException {
+    public void deleteCustomer(String phoneNumber) throws InvalidSqlStatementException, EntityNotFoundException {
         try {
+
+            getCustomerByPhone(phoneNumber); // check if customer with this phone number exists
+
             final String sql =
                     "DELETE FROM customer " +
                     "WHERE phoneNumber = ?;";
