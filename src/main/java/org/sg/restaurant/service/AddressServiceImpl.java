@@ -34,9 +34,9 @@ public class AddressServiceImpl implements AddressService {
         try {
             return addressDao.getAddressByHouseId(houseId);
         } catch (InvalidSqlStatementException | EntityNotFoundException exception) {
-            Address invalidAddress = new Address();
-            invalidAddress.setHouseNumber(exception.getMessage());
-            return invalidAddress;
+            Address exceptionAddress = new Address();
+            exceptionAddress.setHouseNumber(exception.getMessage());
+            return exceptionAddress;
         }
     }
 
