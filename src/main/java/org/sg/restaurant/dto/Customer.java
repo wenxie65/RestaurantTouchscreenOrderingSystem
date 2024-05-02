@@ -6,7 +6,7 @@ public class Customer {
     private String customerNotes;
 
     public Customer() {
-        phoneNumber = "";
+        phoneNumber = "0000000000";
         customerName = "";
         customerNotes = "";
     }
