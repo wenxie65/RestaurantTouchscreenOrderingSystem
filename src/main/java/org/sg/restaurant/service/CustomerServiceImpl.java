@@ -5,10 +5,12 @@ import org.sg.restaurant.dao.EntityNotFoundException;
 import org.sg.restaurant.dao.InvalidSqlStatementException;
 import org.sg.restaurant.dto.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class CustomerServiceImpl implements CustomerService{
 
     @Autowired
