@@ -9,22 +9,111 @@ import java.util.HashMap;
 
 public class OrderInfoPanel extends JPanel{
 
-    final static Font font = new Font("Arial", Font.PLAIN, 25);
-    final static Border border = BorderFactory.createEmptyBorder(5,10,5,10);
-    HashMap<JTextComponent, String> textComponentStringMap = new HashMap<>();
-    VirtualKeyboardPanel virtualKeyboardPanel;
-
     public OrderInfoPanel() {
-        setLayout(new BorderLayout());
-        add(createOrderInfoPanel(), BorderLayout.CENTER);
+        setLayout(new BorderLayout(5,5));
+
+        add(createMainPanel(), BorderLayout.CENTER);
+
+        add(createKeyboardContainerPanel(), BorderLayout.SOUTH);
+    }
+
+    private JPanel createKeyboardContainerPanel() {
+        keyboardContainerPanel = new JPanel();
+        keyboardContainerPanel.setLayout(new BorderLayout());
+        keyboardContainerPanel.setPreferredSize(new Dimension(400, 250));
 
         virtualKeyboardPanel = new VirtualKeyboardPanel();
         virtualKeyboardPanel.setTextComponentStringMap(textComponentStringMap);
-        add(virtualKeyboardPanel.getKeyboardPanel(), BorderLayout.SOUTH);
+        keyboardContainerPanel.add(virtualKeyboardPanel.getKeyboardPanel(), BorderLayout.CENTER);
+
+        return keyboardContainerPanel;
+    }
+
+    private JPanel createMainPanel() {
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(1,3,10, 10));
+
+        mainPanel.add(createOrderInfoPanel());
+        mainPanel.add(createAddressRecommendPanel());
+        mainPanel.add(createOrderHistoryAndButtonPanel());
+
+        return mainPanel;
+    }
+
+    private JPanel createOrderHistoryAndButtonPanel() {
+        orderHistoryAndButtonPanel = new JPanel();
+        orderHistoryAndButtonPanel.setLayout(new BorderLayout());
+
+        orderHistoryAndButtonPanel.add(createOrderHistoryPanel(), BorderLayout.CENTER);
+
+        orderHistoryAndButtonPanel.add(createOrderButtonPanel(), BorderLayout.SOUTH);
+
+        return orderHistoryAndButtonPanel;
+    }
+
+    private JPanel createOrderButtonPanel() {
+        orderButtonPanel = new JPanel();
+        orderButtonPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+
+        orderButton = new JButton("Order");
+        orderButton.setFont(font);
+        orderButtonPanel.add(orderButton);
+
+        return orderButtonPanel;
+    }
+
+    private JPanel createOrderHistoryPanel() {
+        orderHistoryPanel = new JPanel();
+        orderHistoryPanel.setLayout(new GridLayout(4, 1));
+
+        orderHistoryButton1.setFont(font);
+        orderHistoryPanel.add(orderHistoryButton1);
+
+        orderHistoryButton2.setFont(font);
+        orderHistoryPanel.add(orderHistoryButton2);
+
+        orderHistoryButton3.setFont(font);
+        orderHistoryPanel.add(orderHistoryButton3);
+
+        orderHistoryButton4.setFont(font);
+        orderHistoryPanel.add(orderHistoryButton4);
+
+        return orderHistoryPanel;
+    }
+
+    private JPanel createAddressRecommendPanel() {
+        addressRecommendPanel = new JPanel();
+        addressRecommendPanel.setLayout(new GridLayout(4, 2));
+
+        addressRecommendButton1.setFont(font);
+        addressRecommendPanel.add(addressRecommendButton1);
+
+        addressRecommendButton2.setFont(font);
+        addressRecommendPanel.add(addressRecommendButton2);
+
+        addressRecommendButton3.setFont(font);
+        addressRecommendPanel.add(addressRecommendButton3);
+
+        addressRecommendButton4.setFont(font);
+        addressRecommendPanel.add(addressRecommendButton4);
+
+        addressRecommendButton5.setFont(font);
+        addressRecommendPanel.add(addressRecommendButton5);
+
+        addressRecommendButton6.setFont(font);
+        addressRecommendPanel.add(addressRecommendButton6);
+
+        addressRecommendButton7.setFont(font);
+        addressRecommendPanel.add(addressRecommendButton7);
+
+        addressRecommendButton8.setFont(font);
+        addressRecommendPanel.add(addressRecommendButton8);
+
+        return addressRecommendPanel;
     }
 
     private JPanel createOrderInfoPanel() {
-        JPanel orderInfoPanel = new JPanel();
+        orderInfoPanel = new JPanel();
         orderInfoPanel.setLayout(new BorderLayout());
 
         orderInfoPanel.add(createPhoneNumberPanel(), BorderLayout.NORTH);
@@ -35,27 +124,28 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createCustomerInfoPanel() {
-        JPanel customerInfoPanel = new JPanel();
+        customerInfoPanel = new JPanel();
         customerInfoPanel.setLayout(new BorderLayout());
 
         customerInfoPanel.add(createAddressPanel(), BorderLayout.NORTH);
         customerInfoPanel.add(createNamePanel(), BorderLayout.CENTER);
         customerInfoPanel.add(createNotesPanel(), BorderLayout.SOUTH);
 
+        customerInfoPanel.setBorder(border);
 
         return customerInfoPanel;
     }
 
     private JPanel createPhoneNumberPanel() {
-        JPanel phoneNumberPanel = new JPanel();
+        phoneNumberPanel = new JPanel();
         phoneNumberPanel.setLayout(new BorderLayout());
         phoneNumberPanel.setBorder(border);
 
-        JLabel phoneNumberLabel = new JLabel("Phone Number: ");
+        phoneNumberLabel = new JLabel("Phone #: ");
         phoneNumberLabel.setFont(font);
         phoneNumberPanel.add(phoneNumberLabel, BorderLayout.WEST);
 
-        JTextField phoneNumberTextField = new JTextField();
+        phoneNumberTextField = new JTextField();
         phoneNumberTextField.setFont(font);
         phoneNumberTextField.addFocusListener(new TextComponentFocusListener());
         phoneNumberPanel.add(phoneNumberTextField, BorderLayout.CENTER);
@@ -66,11 +156,11 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createOrderTypePanel() {
-        JPanel orderTypePanel = new JPanel();
+        orderTypePanel = new JPanel();
         orderTypePanel.setLayout(new BorderLayout());
         orderTypePanel.setBorder(border);
 
-        JButton typeButton = new JButton("Pickup");
+        typeButton = new JButton("Pickup");
         typeButton.setFont(font);
         typeButton.addActionListener(new TypeButtonClickedListener());
         orderTypePanel.add(typeButton, BorderLayout.CENTER);
@@ -79,7 +169,7 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createAddressPanel() {
-        JPanel addressPanel = new JPanel();
+        addressPanel = new JPanel();
         addressPanel.setLayout(new BorderLayout());
 
         addressPanel.add(createHouseAptNumberPanel(), BorderLayout.NORTH);
@@ -90,8 +180,8 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createHouseAptNumberPanel() {
-        JPanel houseAptNumberPanel = new JPanel();
-        houseAptNumberPanel.setLayout(new GridLayout(1,2,10,10));
+        houseAptNumberPanel = new JPanel();
+        houseAptNumberPanel.setLayout(new GridLayout(2,1));
 
         houseAptNumberPanel.add(createHouseNumberPanel());
         houseAptNumberPanel.add(createAptNumberPanel());
@@ -100,15 +190,15 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createHouseNumberPanel() {
-        JPanel houseNumberPanel = new JPanel();
+        houseNumberPanel = new JPanel();
         houseNumberPanel.setLayout(new BorderLayout());
         houseNumberPanel.setBorder(border);
 
-        JLabel houseNumberLabel = new JLabel("House Number: ");
+        houseNumberLabel = new JLabel("House #: ");
         houseNumberLabel.setFont(font);
         houseNumberPanel.add(houseNumberLabel, BorderLayout.WEST);
 
-        JTextField houseNumberTextField = new JTextField();
+        houseNumberTextField = new JTextField();
         houseNumberTextField.setFont(font);
         houseNumberTextField.addFocusListener(new TextComponentFocusListener());
         houseNumberPanel.add(houseNumberTextField, BorderLayout.CENTER);
@@ -119,15 +209,15 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createAptNumberPanel() {
-        JPanel aptNumberPanel = new JPanel();
+        aptNumberPanel = new JPanel();
         aptNumberPanel.setLayout(new BorderLayout());
         aptNumberPanel.setBorder(border);
 
-        JLabel aptNumberLabel = new JLabel("Apt Number: ");
+        aptNumberLabel = new JLabel("Apt #: ");
         aptNumberLabel.setFont(font);
         aptNumberPanel.add(aptNumberLabel, BorderLayout.WEST);
 
-        JTextField aptNumberTextField = new JTextField();
+        aptNumberTextField = new JTextField();
         aptNumberTextField.setFont(font);
         aptNumberTextField.addFocusListener(new TextComponentFocusListener());
         aptNumberPanel.add(aptNumberTextField, BorderLayout.CENTER);
@@ -138,21 +228,21 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createStreetNamePanel() {
-        JPanel streetNamePanel = new JPanel();
+        streetNamePanel = new JPanel();
         streetNamePanel.setLayout(new BorderLayout());
         streetNamePanel.setBorder(border);
 
-        JLabel streetNameLabel = new JLabel("Street: ");
+        streetNameLabel = new JLabel("Street: ");
         streetNameLabel.setFont(font);
-        streetNamePanel.add(streetNameLabel, BorderLayout.NORTH);
+        streetNamePanel.add(streetNameLabel, BorderLayout.WEST);
 
-        JTextArea streetNameTextArea = new JTextArea(3,10);
+        streetNameTextArea = new JTextArea(3,10);
         streetNameTextArea.setLineWrap(true);
         streetNameTextArea.setFont(font);
         streetNameTextArea.addFocusListener(new TextComponentFocusListener());
 
-        JScrollPane scrollPane = new JScrollPane(streetNameTextArea);
-        streetNamePanel.add(scrollPane, BorderLayout.CENTER);
+        streetNameScrollPane = new JScrollPane(streetNameTextArea);
+        streetNamePanel.add(streetNameScrollPane, BorderLayout.CENTER);
 
         textComponentStringMap.put(streetNameTextArea, "streetNameTextArea");
 
@@ -160,8 +250,8 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createCityZipPanel() {
-        JPanel cityZipPanel = new JPanel();
-        cityZipPanel.setLayout(new GridLayout(1,2,10,10));
+        cityZipPanel = new JPanel();
+        cityZipPanel.setLayout(new GridLayout(2,1,10,10));
 
         cityZipPanel.add(createCityNamePanel());
         cityZipPanel.add(createZipcodePanel());
@@ -170,15 +260,15 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createCityNamePanel() {
-        JPanel cityNamePanel = new JPanel();
+        cityNamePanel = new JPanel();
         cityNamePanel.setLayout(new BorderLayout());
         cityNamePanel.setBorder(border);
 
-        JLabel cityNameLabel = new JLabel("City: ");
+        cityNameLabel = new JLabel("City: ");
         cityNameLabel.setFont(font);
         cityNamePanel.add(cityNameLabel, BorderLayout.WEST);
 
-        JTextField cityNameTextField = new JTextField();
+        cityNameTextField = new JTextField();
         cityNameTextField.setFont(font);
         cityNameTextField.addFocusListener(new TextComponentFocusListener());
         cityNamePanel.add(cityNameTextField, BorderLayout.CENTER);
@@ -189,15 +279,15 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createZipcodePanel() {
-        JPanel zipcodePanel = new JPanel();
+        zipcodePanel = new JPanel();
         zipcodePanel.setLayout(new BorderLayout());
         zipcodePanel.setBorder(border);
 
-        JLabel zipcodeLabel = new JLabel("Zipcode: ");
+        zipcodeLabel = new JLabel("Zipcode: ");
         zipcodeLabel.setFont(font);
         zipcodePanel.add(zipcodeLabel, BorderLayout.WEST);
 
-        JTextField zipcodeTextField = new JTextField();
+        zipcodeTextField = new JTextField();
         zipcodeTextField.setFont(font);
         zipcodeTextField.addFocusListener(new TextComponentFocusListener());
         zipcodePanel.add(zipcodeTextField, BorderLayout.CENTER);
@@ -208,15 +298,15 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createNamePanel() {
-        JPanel namePanel = new JPanel();
+        namePanel = new JPanel();
         namePanel.setLayout(new BorderLayout());
         namePanel.setBorder(border);
 
-        JLabel nameLabel = new JLabel("Name: ");
+        nameLabel = new JLabel("Name: ");
         nameLabel.setFont(font);
         namePanel.add(nameLabel, BorderLayout.WEST);
 
-        JTextField nameTextField = new JTextField();
+        nameTextField = new JTextField();
         nameTextField.setFont(font);
         nameTextField.addFocusListener(new TextComponentFocusListener());
         namePanel.add(nameTextField, BorderLayout.CENTER);
@@ -227,21 +317,21 @@ public class OrderInfoPanel extends JPanel{
     }
 
     private JPanel createNotesPanel() {
-        JPanel notesPanel = new JPanel();
+        notesPanel = new JPanel();
         notesPanel.setLayout(new BorderLayout());
         notesPanel.setBorder(border);
 
-        JLabel notesLabel = new JLabel("Notes: ");
+        notesLabel = new JLabel("Notes: ");
         notesLabel.setFont(font);
         notesPanel.add(notesLabel, BorderLayout.WEST);
 
-        JTextArea notesTextArea = new JTextArea(2,10);
+        notesTextArea = new JTextArea(2,10);
         notesTextArea.setLineWrap(true);
         notesTextArea.setFont(font);
         notesTextArea.addFocusListener(new TextComponentFocusListener());
 
-        JScrollPane scrollPane = new JScrollPane(notesTextArea);
-        notesPanel.add(scrollPane, BorderLayout.CENTER);
+        notesScrollPane = new JScrollPane(notesTextArea);
+        notesPanel.add(notesScrollPane, BorderLayout.CENTER);
 
         textComponentStringMap.put(notesTextArea, "notesTextArea");
 
@@ -278,4 +368,70 @@ public class OrderInfoPanel extends JPanel{
             // Don't need to handle focus lost
         }
     }
+
+
+
+    final static Font font = new Font("Arial", Font.PLAIN, 25);
+    final static Border border = BorderFactory.createEmptyBorder(2,2,2,2);
+    HashMap<JTextComponent, String> textComponentStringMap = new HashMap<>();
+
+    VirtualKeyboardPanel virtualKeyboardPanel = new VirtualKeyboardPanel();
+
+    JPanel mainPanel = new JPanel();
+    JPanel keyboardContainerPanel = new JPanel();
+    JPanel addressRecommendPanel = new JPanel();
+    JPanel orderInfoPanel = new JPanel();
+    JPanel customerInfoPanel = new JPanel();
+    JPanel phoneNumberPanel = new JPanel();
+    JPanel orderTypePanel = new JPanel();
+    JPanel addressPanel = new JPanel();
+    JPanel houseAptNumberPanel = new JPanel();
+    JPanel houseNumberPanel = new JPanel();
+    JPanel aptNumberPanel = new JPanel();
+    JPanel streetNamePanel = new JPanel();
+    JPanel cityZipPanel = new JPanel();
+    JPanel cityNamePanel = new JPanel();
+    JPanel zipcodePanel = new JPanel();
+    JPanel namePanel = new JPanel();
+    JPanel notesPanel = new JPanel();
+    JPanel orderHistoryPanel = new JPanel();
+    JPanel orderHistoryAndButtonPanel = new JPanel();
+    JPanel orderButtonPanel = new JPanel();
+
+    JLabel phoneNumberLabel = new JLabel();
+    JLabel houseNumberLabel = new JLabel();
+    JLabel aptNumberLabel = new JLabel();
+    JLabel streetNameLabel = new JLabel();
+    JLabel cityNameLabel = new JLabel();
+    JLabel zipcodeLabel = new JLabel();
+    JLabel nameLabel = new JLabel();
+    JLabel notesLabel = new JLabel();
+
+    JTextField phoneNumberTextField = new JTextField();
+    JTextField houseNumberTextField = new JTextField();
+    JTextField aptNumberTextField = new JTextField();
+    JTextField cityNameTextField = new JTextField();
+    JTextField zipcodeTextField = new JTextField();
+    JTextField nameTextField = new JTextField();
+
+    JButton typeButton = new JButton();
+    JButton addressRecommendButton1  = new JButton();
+    JButton addressRecommendButton2  = new JButton();
+    JButton addressRecommendButton3  = new JButton();
+    JButton addressRecommendButton4  = new JButton();
+    JButton addressRecommendButton5  = new JButton();
+    JButton addressRecommendButton6  = new JButton();
+    JButton addressRecommendButton7  = new JButton();
+    JButton addressRecommendButton8  = new JButton();
+    JButton orderHistoryButton1 = new JButton();
+    JButton orderHistoryButton2 = new JButton();
+    JButton orderHistoryButton3 = new JButton();
+    JButton orderHistoryButton4 = new JButton();
+    JButton orderButton = new JButton();
+
+    JTextArea streetNameTextArea = new JTextArea();
+    JTextArea notesTextArea = new JTextArea();
+
+    JScrollPane streetNameScrollPane = new JScrollPane();
+    JScrollPane notesScrollPane = new JScrollPane();
 }

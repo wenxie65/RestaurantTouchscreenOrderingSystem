@@ -10,12 +10,12 @@ import java.util.HashMap;
 
 public class VirtualKeyboardPanel extends JPanel{
 
-    private final JPanel keyboardPanel;
+    private JPanel keyboardPanel = new JPanel();
     private JTextComponent currentSelectionTextComponent;
     private HashMap<JTextComponent, String> textComponentStringMap;
     private boolean isCap;
     private boolean isShift;
-    final static Font font = new Font("Arial", Font.PLAIN, 25);
+    final static Font font = new Font("Arial", Font.PLAIN, 23);
 
     public VirtualKeyboardPanel() {
         this.keyboardPanel = newVirtualKeyboardPanel();
@@ -110,6 +110,7 @@ public class VirtualKeyboardPanel extends JPanel{
                 JButton button = (JButton) e.getSource();
                 String key = button.getText();
                 String text = currentSelectionTextComponent.getText();
+                int caretPosition = currentSelectionTextComponent.getCaretPosition();
 
                 if (isShift && !key.equals("Shift")) {
                     isShift = false;
@@ -117,20 +118,24 @@ public class VirtualKeyboardPanel extends JPanel{
 
                 switch (key) {
                     case "←":
-                        if (!text.isEmpty()) {
-                            text = text.substring(0, text.length() - 1);
+                        if (!text.isEmpty() && caretPosition - 1 >= 0) {
+                            text = text.substring(0, caretPosition - 1) + text.substring(caretPosition);
+                            caretPosition -= 1;
                         }
                         break;
                     case "Tab":
-                        text += "     ";
+                        text = text.substring(0, caretPosition) + "     " + text.substring(caretPosition);
+                        caretPosition += 5;
                         break;
                     case "Enter":
                         if (currentSelectionTextComponent.getClass() == JTextArea.class) {
-                            text += "\n";
+                            text = text.substring(0, caretPosition) + "\n" + text.substring(caretPosition);
+                            caretPosition += 1;
                         }
                         break;
                     case "Space":
-                        text += " ";
+                        text = text.substring(0, caretPosition) + " " + text.substring(caretPosition);
+                        caretPosition += 1;
                         break;
                     case "Caps":
                         isCap = !isCap;
@@ -139,14 +144,17 @@ public class VirtualKeyboardPanel extends JPanel{
                         isShift = !isShift;
                         break;
                     default:
-                        text += key;
+                        text = text.substring(0, caretPosition) + key + text.substring(caretPosition);
                         KeyEvent keyEvent = new KeyEvent(currentSelectionTextComponent, KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, key.charAt(0));
                         currentSelectionTextComponent.dispatchEvent(keyEvent);
+                        caretPosition += 1;
                         break;
                 }
+
                 updateKeyboard();
                 currentSelectionTextComponent.setText(text);
                 currentSelectionTextComponent.requestFocusInWindow();
+                currentSelectionTextComponent.setCaretPosition(caretPosition);
                 if (textComponentStringMap.get(currentSelectionTextComponent).equals("phoneNumberTextField")) {
                     formatPhoneNumber();
                 }
