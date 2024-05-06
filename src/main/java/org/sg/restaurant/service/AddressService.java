@@ -1,9 +1,11 @@
 package org.sg.restaurant.service;
 
 import org.sg.restaurant.dto.*;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public interface AddressService {
     Map<Integer, Address> getAllAddress();
 
