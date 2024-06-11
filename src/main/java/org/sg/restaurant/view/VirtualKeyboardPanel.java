@@ -143,6 +143,8 @@ public class VirtualKeyboardPanel extends JPanel{
                         if (currentSelectionTextComponent.getClass() == JTextArea.class) {
                             text = text.substring(0, caretPosition) + "\n" + text.substring(caretPosition);
                             caretPosition += 1;
+                        } else {
+                            setCurrentSelectionTextComponentIndex(++currentSelectionTextComponentIndex);
                         }
                         break;
                     case "Space":
