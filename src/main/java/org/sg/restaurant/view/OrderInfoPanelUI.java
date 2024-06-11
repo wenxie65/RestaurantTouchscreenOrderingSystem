@@ -247,8 +247,6 @@ public class OrderInfoPanelUI extends JPanel{
         streetNameScrollPane = new JScrollPane(streetNameTextArea);
         streetNamePanel.add(streetNameScrollPane, BorderLayout.CENTER);
 
-        streetNameTextArea.setPreferredSize(new Dimension(300, streetNameTextArea.getPreferredSize().height));
-
         textComponentMap.put(4, streetNameTextArea);
 
         return streetNamePanel;
