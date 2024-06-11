@@ -4,12 +4,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.HashMap;
 
-public class OrderInfoPanel extends JPanel{
+public class OrderInfoPanelUI extends JPanel{
 
-    public OrderInfoPanel() {
+    public OrderInfoPanelUI() {
         setLayout(new BorderLayout(5,5));
 
         add(createMainPanel(), BorderLayout.CENTER);
@@ -23,7 +22,8 @@ public class OrderInfoPanel extends JPanel{
         keyboardContainerPanel.setPreferredSize(new Dimension(400, 250));
 
         virtualKeyboardPanel = new VirtualKeyboardPanel();
-        virtualKeyboardPanel.setTextComponentStringMap(textComponentStringMap);
+        virtualKeyboardPanel.setTextComponentMap(textComponentMap);
+        OrderInfoPanelListeners.setKeyboardPanel(virtualKeyboardPanel);
         keyboardContainerPanel.add(virtualKeyboardPanel.getKeyboardPanel(), BorderLayout.CENTER);
 
         return keyboardContainerPanel;
@@ -147,10 +147,11 @@ public class OrderInfoPanel extends JPanel{
 
         phoneNumberTextField = new JTextField();
         phoneNumberTextField.setFont(font);
-        phoneNumberTextField.addFocusListener(new TextComponentFocusListener());
+        phoneNumberTextField.addFocusListener(new OrderInfoPanelListeners.TextComponentFocusListener());
+        phoneNumberTextField.setPreferredSize(new Dimension(300, phoneNumberTextField.getPreferredSize().height));
         phoneNumberPanel.add(phoneNumberTextField, BorderLayout.CENTER);
 
-        textComponentStringMap.put(phoneNumberTextField, "phoneNumberTextField");
+        textComponentMap.put(1, phoneNumberTextField);
 
         return phoneNumberPanel;
     }
@@ -162,7 +163,7 @@ public class OrderInfoPanel extends JPanel{
 
         typeButton = new JButton("Pickup");
         typeButton.setFont(font);
-        typeButton.addActionListener(new TypeButtonClickedListener());
+        typeButton.addActionListener(new OrderInfoPanelListeners.TypeButtonClickedListener());
         orderTypePanel.add(typeButton, BorderLayout.CENTER);
 
         return orderTypePanel;
@@ -200,10 +201,11 @@ public class OrderInfoPanel extends JPanel{
 
         houseNumberTextField = new JTextField();
         houseNumberTextField.setFont(font);
-        houseNumberTextField.addFocusListener(new TextComponentFocusListener());
+        houseNumberTextField.addFocusListener(new OrderInfoPanelListeners.TextComponentFocusListener());
+        houseNumberTextField.setPreferredSize(new Dimension(300, houseNumberTextField.getPreferredSize().height));
         houseNumberPanel.add(houseNumberTextField, BorderLayout.CENTER);
 
-        textComponentStringMap.put(houseNumberTextField, "houseNumberTextField");
+        textComponentMap.put(2, houseNumberTextField);
 
         return houseNumberPanel;
     }
@@ -213,16 +215,17 @@ public class OrderInfoPanel extends JPanel{
         aptNumberPanel.setLayout(new BorderLayout());
         aptNumberPanel.setBorder(border);
 
-        aptNumberLabel = new JLabel("Apt #: ");
+        aptNumberLabel = new JLabel("Apt #:      ");
         aptNumberLabel.setFont(font);
         aptNumberPanel.add(aptNumberLabel, BorderLayout.WEST);
 
         aptNumberTextField = new JTextField();
         aptNumberTextField.setFont(font);
-        aptNumberTextField.addFocusListener(new TextComponentFocusListener());
+        aptNumberTextField.addFocusListener(new OrderInfoPanelListeners.TextComponentFocusListener());
+        aptNumberTextField.setPreferredSize(new Dimension(300, aptNumberTextField.getPreferredSize().height));
         aptNumberPanel.add(aptNumberTextField, BorderLayout.CENTER);
 
-        textComponentStringMap.put(aptNumberTextField, "aptNumberTextField");
+        textComponentMap.put(3, aptNumberTextField);
 
         return aptNumberPanel;
     }
@@ -232,19 +235,21 @@ public class OrderInfoPanel extends JPanel{
         streetNamePanel.setLayout(new BorderLayout());
         streetNamePanel.setBorder(border);
 
-        streetNameLabel = new JLabel("Street: ");
+        streetNameLabel = new JLabel("Street:     ");
         streetNameLabel.setFont(font);
         streetNamePanel.add(streetNameLabel, BorderLayout.WEST);
 
         streetNameTextArea = new JTextArea(3,10);
         streetNameTextArea.setLineWrap(true);
         streetNameTextArea.setFont(font);
-        streetNameTextArea.addFocusListener(new TextComponentFocusListener());
+        streetNameTextArea.addFocusListener(new OrderInfoPanelListeners.TextComponentFocusListener());
 
         streetNameScrollPane = new JScrollPane(streetNameTextArea);
         streetNamePanel.add(streetNameScrollPane, BorderLayout.CENTER);
 
-        textComponentStringMap.put(streetNameTextArea, "streetNameTextArea");
+        streetNameTextArea.setPreferredSize(new Dimension(300, streetNameTextArea.getPreferredSize().height));
+
+        textComponentMap.put(4, streetNameTextArea);
 
         return streetNamePanel;
     }
@@ -264,16 +269,16 @@ public class OrderInfoPanel extends JPanel{
         cityNamePanel.setLayout(new BorderLayout());
         cityNamePanel.setBorder(border);
 
-        cityNameLabel = new JLabel("City: ");
+        cityNameLabel = new JLabel("City:        ");
         cityNameLabel.setFont(font);
         cityNamePanel.add(cityNameLabel, BorderLayout.WEST);
 
         cityNameTextField = new JTextField();
         cityNameTextField.setFont(font);
-        cityNameTextField.addFocusListener(new TextComponentFocusListener());
+        cityNameTextField.addFocusListener(new OrderInfoPanelListeners.TextComponentFocusListener());
         cityNamePanel.add(cityNameTextField, BorderLayout.CENTER);
 
-        textComponentStringMap.put(cityNameTextField, "cityNameTextField");
+        textComponentMap.put(5, cityNameTextField);
 
         return cityNamePanel;
     }
@@ -283,16 +288,17 @@ public class OrderInfoPanel extends JPanel{
         zipcodePanel.setLayout(new BorderLayout());
         zipcodePanel.setBorder(border);
 
-        zipcodeLabel = new JLabel("Zipcode: ");
+        zipcodeLabel = new JLabel("Zipcode:  ");
         zipcodeLabel.setFont(font);
         zipcodePanel.add(zipcodeLabel, BorderLayout.WEST);
 
         zipcodeTextField = new JTextField();
         zipcodeTextField.setFont(font);
-        zipcodeTextField.addFocusListener(new TextComponentFocusListener());
+
+        zipcodeTextField.addFocusListener(new OrderInfoPanelListeners.TextComponentFocusListener());
         zipcodePanel.add(zipcodeTextField, BorderLayout.CENTER);
 
-        textComponentStringMap.put(zipcodeTextField, "zipcodeTextField");
+        textComponentMap.put(6, zipcodeTextField);
 
         return zipcodePanel;
     }
@@ -302,16 +308,16 @@ public class OrderInfoPanel extends JPanel{
         namePanel.setLayout(new BorderLayout());
         namePanel.setBorder(border);
 
-        nameLabel = new JLabel("Name: ");
+        nameLabel = new JLabel("Name:     ");
         nameLabel.setFont(font);
         namePanel.add(nameLabel, BorderLayout.WEST);
 
         nameTextField = new JTextField();
         nameTextField.setFont(font);
-        nameTextField.addFocusListener(new TextComponentFocusListener());
+        nameTextField.addFocusListener(new OrderInfoPanelListeners.TextComponentFocusListener());
         namePanel.add(nameTextField, BorderLayout.CENTER);
 
-        textComponentStringMap.put(nameTextField, "nameTextField");
+        textComponentMap.put(7, nameTextField);
 
         return namePanel;
     }
@@ -321,59 +327,27 @@ public class OrderInfoPanel extends JPanel{
         notesPanel.setLayout(new BorderLayout());
         notesPanel.setBorder(border);
 
-        notesLabel = new JLabel("Notes: ");
+        notesLabel = new JLabel("Notes:     ");
         notesLabel.setFont(font);
         notesPanel.add(notesLabel, BorderLayout.WEST);
 
         notesTextArea = new JTextArea(2,10);
         notesTextArea.setLineWrap(true);
         notesTextArea.setFont(font);
-        notesTextArea.addFocusListener(new TextComponentFocusListener());
+        notesTextArea.addFocusListener(new OrderInfoPanelListeners.TextComponentFocusListener());
 
         notesScrollPane = new JScrollPane(notesTextArea);
         notesPanel.add(notesScrollPane, BorderLayout.CENTER);
 
-        textComponentStringMap.put(notesTextArea, "notesTextArea");
+        textComponentMap.put(8, notesTextArea);
 
         return notesPanel;
     }
 
-    private static class TypeButtonClickedListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton typeButton = (JButton) e.getSource();
-
-            String[] options = { "Pickup", "Delivery" };
-            UIManager.put("OptionPane.messageFont", font);
-            UIManager.put("OptionPane.buttonFont", font);
-            int choice = JOptionPane.showOptionDialog(null, "Choose an option:", "Options", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-            if (choice == 0) {
-                typeButton.setText("Pickup");
-            } else if (choice == 1) {
-                typeButton.setText("Delivery");
-            }
-        }
-    }
-
-    private class TextComponentFocusListener implements FocusListener {
-        @Override
-        public void focusGained(FocusEvent e) {
-            virtualKeyboardPanel.setCurrentSelectionTextComponent((JTextComponent) e.getSource());
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            // Don't need to handle focus lost
-        }
-    }
-
-
 
     final static Font font = new Font("Arial", Font.PLAIN, 25);
     final static Border border = BorderFactory.createEmptyBorder(2,2,2,2);
-    HashMap<JTextComponent, String> textComponentStringMap = new HashMap<>();
+    HashMap<Integer, JTextComponent> textComponentMap = new HashMap<>();
 
     VirtualKeyboardPanel virtualKeyboardPanel = new VirtualKeyboardPanel();
 

@@ -11,8 +11,9 @@ import java.util.HashMap;
 public class VirtualKeyboardPanel extends JPanel{
 
     private JPanel keyboardPanel = new JPanel();
+    private Integer currentSelectionTextComponentIndex;
     private JTextComponent currentSelectionTextComponent;
-    private HashMap<JTextComponent, String> textComponentStringMap;
+    private HashMap<Integer, JTextComponent> textComponentMap;
     private boolean isCap;
     private boolean isShift;
     final static Font font = new Font("Arial", Font.PLAIN, 23);
@@ -29,10 +30,21 @@ public class VirtualKeyboardPanel extends JPanel{
 
     public void setCurrentSelectionTextComponent(JTextComponent currentSelectionTextComponent) {
         this.currentSelectionTextComponent = currentSelectionTextComponent;
+        for (Integer index : textComponentMap.keySet()) {
+            if (textComponentMap.get(index) == currentSelectionTextComponent) {
+                currentSelectionTextComponentIndex = index;
+                break;
+            }
+        }
     }
 
-    public void setTextComponentStringMap(HashMap<JTextComponent, String> textComponentStringMap) {
-        this.textComponentStringMap = textComponentStringMap;
+    public void setCurrentSelectionTextComponentIndex(Integer currentSelectionTextComponentIndex) {
+        this.currentSelectionTextComponentIndex = currentSelectionTextComponentIndex;
+        currentSelectionTextComponent = textComponentMap.get(currentSelectionTextComponentIndex);
+    }
+
+    public void setTextComponentMap(HashMap<Integer, JTextComponent> textComponentStringMap) {
+        this.textComponentMap = textComponentStringMap;
     }
 
     private JPanel newVirtualKeyboardPanel() {
@@ -124,8 +136,8 @@ public class VirtualKeyboardPanel extends JPanel{
                         }
                         break;
                     case "Tab":
-                        text = text.substring(0, caretPosition) + "     " + text.substring(caretPosition);
-                        caretPosition += 5;
+                        text = text.substring(0, caretPosition) + "\t" + text.substring(caretPosition);
+                        caretPosition += 1;
                         break;
                     case "Enter":
                         if (currentSelectionTextComponent.getClass() == JTextArea.class) {
@@ -155,7 +167,7 @@ public class VirtualKeyboardPanel extends JPanel{
                 currentSelectionTextComponent.setText(text);
                 currentSelectionTextComponent.requestFocusInWindow();
                 currentSelectionTextComponent.setCaretPosition(caretPosition);
-                if (textComponentStringMap.get(currentSelectionTextComponent).equals("phoneNumberTextField")) {
+                if (currentSelectionTextComponentIndex == 1) {
                     formatPhoneNumber();
                 }
             }
